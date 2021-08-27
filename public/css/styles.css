@@ -2,3 +2,18 @@
 body {
   background-color: #E8ECEF;
 }
+
+/***********************************************NAVBAR**************************************************************************************************/
+
+.my_brand {
+width:16.5vw;
+height:4.5vw;
+}
+
+.navbg {
+  background-color: #E8ECEF;
+  padding: 1vw 1vw;
+}
+.nav-pad{
+  margin-right:0.5vw;
+}
