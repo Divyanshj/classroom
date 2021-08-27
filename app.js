@@ -10,6 +10,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
+const dotenv = require("dotenv");
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://Divyansh_Jain:Divy2000@cluster0.5aalj.mongodb.net/studentDB", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://Divyansh_Jain:"+process.env.PASS+"@cluster0.5aalj.mongodb.net/studentDB", {useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const studentSchema = new mongoose.Schema ({
@@ -63,7 +64,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
 
-    Student.findOrCreate({ googleId: profile.id }, function (err, student) {
+    Student.findOrCreate({ username: profile.emails[0].value,googleId: profile.id }, function (err, student) {
       return cb(err, student);
     });
   }
@@ -74,7 +75,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/auth/google",
-  passport.authenticate('google', { scope: ["profile"] })
+  passport.authenticate('google', { scope: ["profile","email"] })
 );
 
 app.get("/auth/google/home",
