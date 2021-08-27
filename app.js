@@ -28,7 +28,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/studentDB", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://Divyansh_Jain:Divy2000@cluster0.5aalj.mongodb.net/studentDB", {useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const studentSchema = new mongoose.Schema ({
@@ -150,6 +150,6 @@ app.post("/login", function(req, res){
 
 
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log("Server started on port 3000.");
 });
