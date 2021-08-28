@@ -34,13 +34,20 @@ mongoose.connect("mongodb+srv://Divyansh_Jain:"+process.env.PASS+"@cluster0.5aal
 
 
 const studentSchema = new mongoose.Schema ({
-  name:String,
-  role: String,
-  teacherid: String,
-  rollno:String,
   email: String,
   password: String,
   googleId: String,
+  role:String,
+  teacher:{
+    name:String,
+    subject: String,
+    assignments: [String],
+    test: [String],
+  },
+  stud:{
+    name:String,
+    rollno:String,
+  }
 });
 
 studentSchema.plugin(passportLocalMongoose);
@@ -118,16 +125,33 @@ app.get("/logout", function(req, res){
 
 app.post("/signup", function(req, res){
 
-  Student.register( {username: req.body.username}, req.body.password, function(err, student){
-    if (err) {
-      console.log(err);
-      res.redirect("/signup");
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/home");
-      });
-    }
-  });
+      if(req.body.role === "Teacher"){
+        Student.register( {username: req.body.username , teacher: {name: req.body.role}  }, req.body.password, function(err, student){
+          if (err) {
+            console.log(err);
+            res.redirect("/signup");
+          } else {
+
+            passport.authenticate("local")(req, res, function(){
+              res.redirect("/home");
+            });
+          }
+        });
+
+      } else {
+        Student.register( {username: req.body.username , stud: {name: req.body.role}  }, req.body.password, function(err, student){
+          if (err) {
+            console.log(err);
+            res.redirect("/signup");
+          } else {
+
+            passport.authenticate("local")(req, res, function(){
+              res.redirect("/home");
+            });
+          }
+        });
+
+      }
 
 });
 
