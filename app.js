@@ -34,6 +34,10 @@ mongoose.connect("mongodb+srv://Divyansh_Jain:"+process.env.PASS+"@cluster0.5aal
 
 
 const studentSchema = new mongoose.Schema ({
+  name:String,
+  role: String,
+  teacherid: String,
+  rollno:String,
   email: String,
   password: String,
   googleId: String,
@@ -63,7 +67,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+    // console.log(profile);
 
     Student.findOrCreate({ username: profile.emails[0].value,googleId: profile.id }, function (err, student) {
       return cb(err, student);
@@ -114,7 +118,7 @@ app.get("/logout", function(req, res){
 
 app.post("/signup", function(req, res){
 
-  Student.register({username: req.body.username}, req.body.password, function(err, student){
+  Student.register( {username: req.body.username}, req.body.password, function(err, student){
     if (err) {
       console.log(err);
       res.redirect("/signup");
