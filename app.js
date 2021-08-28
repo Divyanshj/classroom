@@ -64,7 +64,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
 
-    Student.findOrCreate({ googleId: profile.id }, function (err, student) {
+    Student.findOrCreate({ username: profile.emails[0].value,googleId: profile.id }, function (err, student) {
       return cb(err, student);
     });
   }
@@ -75,7 +75,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/auth/google",
-  passport.authenticate('google', { scope: ["profile"] })
+  passport.authenticate('google', { scope: ["profile","email"] })
 );
 
 app.get("/auth/google/home",
