@@ -106,6 +106,9 @@ app.get("/home", function(req, res){
 }
 
 });
+app.get("/dashboard",function(req,res){
+  res.render("dashboard");
+});
 
 app.get("/logout", function(req, res){
   req.logout();
