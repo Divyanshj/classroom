@@ -1,4 +1,3 @@
-
 //jshint esversion:6
 require('dotenv').config();
 const express = require("express");
@@ -10,7 +9,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
-const dotenv=require('dotenv');
+const dotenv = require('dotenv');
 const multer = require('multer');
 const uuid = require('uuid').v4;
 
@@ -19,11 +18,15 @@ const storage = multer.diskStorage({
     cb(null, 'upload');
   },
   filename: (req, file, cb) => {
-    const { originalname } = file;
+    const {
+      originalname
+    } = file;
     cb(null, `${uuid()}-${originalname}`);
   }
 })
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage
+});
 
 
 const app = express();
@@ -44,23 +47,26 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://Divyansh_Jain:"+process.env.PASS+"@cluster0.5aalj.mongodb.net/studentDB", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://Divyansh_Jain:" + process.env.PASS + "@cluster0.5aalj.mongodb.net/studentDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 
-const studentSchema = new mongoose.Schema ({
+const studentSchema = new mongoose.Schema({
   email: String,
   password: String,
   googleId: String,
-  role:String,
-  teacher:{
-    name:String,
+  role: String,
+  teacher: {
+    name: String,
     subject: String,
     assignments: [String],
     test: [String],
   },
-  stud:{
-    name:String,
-    rollno:String,
+  stud: {
+    name: String,
+    rollno: String,
   }
 });
 
@@ -88,105 +94,138 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-     // console.log(profile);
+    // console.log(profile);
 
-    Student.findOrCreate({ username: profile.emails[0].value,googleId: profile.id }, function (err, student) {
+    Student.findOrCreate({
+      username: profile.emails[0].value,
+      googleId: profile.id
+    }, function(err, student) {
       return cb(err, student);
     });
   }
 ));
 
-app.get("/", function(req, res){
+app.get("/", function(req, res) {
   res.render("landing");
 });
 
 app.get("/auth/google",
-  passport.authenticate('google', { scope: ["profile","email"] })
+  passport.authenticate('google', {
+    scope: ["profile", "email"]
+  })
 );
 
 app.get("/auth/google/home",
-  passport.authenticate('google', { failureRedirect: "/login" }),
+  passport.authenticate('google', {
+    failureRedirect: "/login"
+  }),
   async function(req, res) {
- try {
+    try {
 
-   if(!req.user.role){
-     res.redirect("/gdata");
-   }else{
-      res.redirect("/home");
-       console.log(req.user.role);
-   }
- } catch (e) {
-   console.log(e);
- }
+      if (!req.user.role) {
+        res.redirect("/gdata");
+      } else {
+        res.redirect("/home");
+        console.log(req.user.role);
+      }
+    } catch (e) {
+      console.log(e);
+    }
 
   });
 
-app.get("/teachershome", function(req, res){
-    res.render("teachershome");
+app.get("/teachershome", function(req, res) {
+  res.render("teachershome");
 });
 
-app.get("/teachersdashboard", function(req, res){
-    res.render("teachersdashboard");
+app.get("/teachersdashboard", function(req, res) {
+  res.render("teachersdashboard");
 });
 
-app.get("/login", function(req, res){
+app.get("/login", function(req, res) {
   res.render("login");
   console.log(Student);
 });
 
-app.get("/signup", function(req, res){
+app.get("/signup", function(req, res) {
   res.render("signup");
 });
 
-app.get("/landing", function(req, res){
+app.get("/landing", function(req, res) {
   res.render("landing");
 });
 //passport has isAuthenticate() through which we can check wether user is logged in or not
-app.get("/home", function(req, res){
-  if (req.isAuthenticated()){
-  res.render("home");
-} else {
-  res.redirect("/landing");
-}
+app.get("/home", function(req, res) {
+      if (req.isAuthenticated()) {
+        Student.findById( req.user.id , function(err, docs) {
+            if (err) {
+              console.log(err);
+            } else {
+              if(docs.role === "Teacher"){
+                res.redirect("/teachershome");
+              }else{
+                res.render("home");
+              }
+            }
+          });}
+           else {
+            res.redirect("/landing");
+          }
 
-});
 
-app.get("/dashboard",function(req,res){
-  res.render("dashboard");});
+      });
 
-app.get("/gdata", function(req,res){
- res.render("gdata");
+    app.get("/dashboard", function(req, res) {
+      if (req.isAuthenticated()) {
+        res.render("dashboard");
+      } else {
+        res.redirect("/landing");
+      }
+    });
 
-});
+    app.get("/gdata", function(req, res) {
+      res.render("gdata");
 
-app.get("/logout", function(req, res){
-  req.logout();
-  res.redirect("/landing");
-});
+    });
 
-app.post("/signup", function(req, res){
+    app.get("/logout", function(req, res) {
+      req.logout();
+      res.redirect("/landing");
+    });
 
-      if(req.body.role === "Teacher"){
-        Student.register( {username: req.body.username , teacher: {name: req.body.role}  }, req.body.password, function(err, student){
+    app.post("/signup", function(req, res) {
+
+      if (req.body.role === "Teacher") {
+        Student.register({
+          username: req.body.username,
+          teacher: {
+            name: req.body.role
+          }
+        }, req.body.password, function(err, student) {
           if (err) {
             console.log(err);
             res.redirect("/signup");
           } else {
 
-            passport.authenticate("local")(req, res, function(){
+            passport.authenticate("local")(req, res, function() {
               res.redirect("/home");
             });
           }
         });
 
       } else {
-        Student.register( {username: req.body.username , stud: {name: req.body.role}  }, req.body.password, function(err, student){
+        Student.register({
+          username: req.body.username,
+          stud: {
+            name: req.body.role
+          }
+        }, req.body.password, function(err, student) {
           if (err) {
             console.log(err);
             res.redirect("/signup");
           } else {
 
-            passport.authenticate("local")(req, res, function(){
+            passport.authenticate("local")(req, res, function() {
               res.redirect("/home");
             });
           }
@@ -194,43 +233,50 @@ app.post("/signup", function(req, res){
 
       }
 
-});
+    });
 
-app.post("/login", function(req, res){
+    app.post("/login", function(req, res) {
 
-  const student = new Student({
-    username: req.body.username,
-    password: req.body.password
-  });
-
-  req.login(student, function(err){
-    if (err) {
-      console.log(err);
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/home");
+      const student = new Student({
+        username: req.body.username,
+        password: req.body.password
       });
-    }
-  });
 
-});
+      req.login(student, function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          passport.authenticate("local")(req, res, function() {
+            res.redirect("/home");
+          });
+        }
+      });
 
-app.post("/gdata", function(req,res){
-  Student.updateOne({ _id:req.user.id }, { $set: { role: req.body.role } }).catch(
-   error => {
-      console.log(error);
-    }
+    });
 
- );
- res.redirect("/home");
-});
-app.post('/upload', upload.single('file_upload'), (req, res) =>{
-  return res.json({ status: 'OK'});
-});
+    app.post("/gdata", function(req, res) {
+      Student.updateOne({
+        _id: req.user.id
+      }, {
+        $set: {
+          role: req.body.role
+        }
+      }).catch(
+        error => {
+          console.log(error);
+        }
+
+      );
+      res.redirect("/home");
+    }); app.post('/upload', upload.single('file_upload'), (req, res) => {
+      return res.json({
+        status: 'OK'
+      });
+    });
 
 
 
 
-app.listen(process.env.PORT || 3000, function() {
-  console.log("Server started on port 3000.");
-});
+    app.listen(process.env.PORT || 3000, function() {
+      console.log("Server started on port 3000.");
+    });
