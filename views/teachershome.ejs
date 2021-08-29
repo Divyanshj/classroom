@@ -1,0 +1,89 @@
+<%- include('partials/headerbl') %>
+
+
+
+  <nav class="navbar  navbar-light bg-light">
+    <div class="container-fluid dashboardNav">
+        <a class="navbar-brand" href="/home"><img src="images\logo.png" class="my_brand" alt=""></a>
+
+          <div class="dropdown">
+           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+             <i class="lni lni-user"></i>User Name
+              </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                 <li><a class="dropdown-item" href="./landing">LogOut</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+
+
+<h1 class="dasboardHeading">Dashboard</h1>
+
+
+
+<div class="row subjectsROW">
+  <div class="col ">
+    <div class="card subjectCards" style="width: 22rem;">
+      <img src="images/english.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">English</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+
+        <a href="#" class="card-link"><button type="button" class="btn btn-primary">View</button></a>
+        <!-- <a href="#" class="card-link"><button type="button" class="btn btn-dark">Join Class</button></a> -->
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card subjectCards" style="width: 22rem;">
+      <img src="images/compscience.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">Computer Science</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+
+        <a href="/teachersdashboard" class="card-link"><button type="button" class="btn btn-primary">View</button></a>
+        <!-- <a href="#" class="card-link"><button type="button" class="btn btn-dark">Join Class</button></a> -->
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card subjectCards" style="width: 22rem; ">
+      <img src="images/chem.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">Chemistry</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+
+        <a href="#" class="card-link"><button type="button" class="btn btn-primary">View</button></a>
+        <!-- <a href="#" class="card-link"><button type="button" class="btn btn-dark">Join Class</button></a> -->
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card subjectCards" style="width: 22rem;">
+      <img src="images/physics.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">Physics</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+
+        <a href="#" class="card-link"><button type="button" class="btn btn-primary">View</button></a>
+        <!-- <a href="#" class="card-link"><button type="button" class="btn btn-dark">Join Class</button></a> -->
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card subjectCards" style="width: 22rem;">
+      <img src="images/maths.png" alt="">
+      <div class="card-body">
+        <h5 class="card-title">Mathematics</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+
+        <a href="#" class="card-link"><button type="button" class="btn btn-primary">View</button></a>
+        <!-- <a href="#" class="card-link"><button type="button" class="btn btn-dark">Join Class</button></a> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
