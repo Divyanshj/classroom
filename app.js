@@ -58,15 +58,17 @@ const studentSchema = new mongoose.Schema({
   password: String,
   googleId: String,
   role: String,
+  stud: {
+    name: String,
+    rollno: String,
+    assignments: [String],
+    test: [String]
+  },
   teacher: {
     name: String,
     subject: String,
     assignments: [String],
-    test: [String],
-  },
-  stud: {
-    name: String,
-    rollno: String,
+    test: [String]
   }
 });
 
