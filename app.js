@@ -11,6 +11,20 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const dotenv=require('dotenv');
+const multer = require('multer');
+const uuid = require('uuid').v4;
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'upload');
+  },
+  filename: (req, file, cb) => {
+    const { originalname } = file;
+    cb(null, `${uuid()}-${originalname}`);
+  }
+})
+const upload = multer({ storage: storage });
+
 
 const app = express();
 
@@ -107,6 +121,14 @@ app.get("/auth/google/home",
 
   });
 
+app.get("/teachershome", function(req, res){
+    res.render("teachershome");
+});
+
+app.get("/teachersdashboard", function(req, res){
+    res.render("teachersdashboard");
+});
+
 app.get("/login", function(req, res){
   res.render("login");
   console.log(Student);
@@ -202,7 +224,9 @@ app.post("/gdata", function(req,res){
  );
  res.redirect("/home");
 });
-
+app.post('/upload', upload.single('file_upload'), (req, res) =>{
+  return res.json({ status: 'OK'});
+});
 
 
 
