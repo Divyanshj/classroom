@@ -1,6 +1,7 @@
 
 body {
   background-color: #E8ECEF;
+  overflow-x: hidden;
 }
 
 /***********************************************NAVBAR**************************************************************************************************/
@@ -17,9 +18,45 @@ height:4.5vw;
 .nav-pad{
   margin-right:0.5vw;
 }
+<<<<<<< HEAD
+.dashboardNav{
+    background-color: #E8ECEf;
+}
+.subjectsROW{
+    background-color: #E8ECEF;
+  padding-top: 1vw;
+  text-align: center;
+}
+.subjectCards{
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 1.5vw;
+}
+.dasboardHeading{
+  font-family: 'Rajdhani', sans-serif;
+  text-align: center;
+  font-size: 4rem;
+  font-weight:bold;
+}
+.utilities{
+  text-align: center;
+  padding: 3rem;
+}
+.AssigmentLIST{
+  width: 57%;
+  text-align: center;
+}
+.AssigmentButton{
+  width:60%;
+}
+.joinClass{
+  text-align: center;
+  padding-top: 2vw;
+=======
 .form-control1{
   width: 51.4vw;
 }
 .role{
   display:none;
+>>>>>>> 85ccde57c16384d0ba929063fe554897bd869241
 }
