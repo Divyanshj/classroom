@@ -10,7 +10,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
-const dotenv = require("dotenv");
+const dotenv=require('dotenv');
 
 const app = express();
 
@@ -37,6 +37,17 @@ const studentSchema = new mongoose.Schema ({
   email: String,
   password: String,
   googleId: String,
+  role:String,
+  teacher:{
+    name:String,
+    subject: String,
+    assignments: [String],
+    test: [String],
+  },
+  stud:{
+    name:String,
+    rollno:String,
+  }
 });
 
 studentSchema.plugin(passportLocalMongoose);
@@ -63,7 +74,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+     // console.log(profile);
 
     Student.findOrCreate({ username: profile.emails[0].value,googleId: profile.id }, function (err, student) {
       return cb(err, student);
@@ -81,13 +92,24 @@ app.get("/auth/google",
 
 app.get("/auth/google/home",
   passport.authenticate('google', { failureRedirect: "/login" }),
-  function(req, res) {
+  async function(req, res) {
+ try {
 
-    res.redirect("/home");
+   if(!req.user.role){
+     res.redirect("/gdata");
+   }else{
+      res.redirect("/home");
+       console.log(req.user.role);
+   }
+ } catch (e) {
+   console.log(e);
+ }
+
   });
 
 app.get("/login", function(req, res){
   res.render("login");
+  console.log(Student);
 });
 
 app.get("/signup", function(req, res){
@@ -106,8 +128,13 @@ app.get("/home", function(req, res){
 }
 
 });
+
 app.get("/dashboard",function(req,res){
-  res.render("dashboard");
+  res.render("dashboard");});
+
+app.get("/gdata", function(req,res){
+ res.render("gdata");
+
 });
 
 app.get("/logout", function(req, res){
@@ -117,16 +144,33 @@ app.get("/logout", function(req, res){
 
 app.post("/signup", function(req, res){
 
-  Student.register({username: req.body.username}, req.body.password, function(err, student){
-    if (err) {
-      console.log(err);
-      res.redirect("/signup");
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/home");
-      });
-    }
-  });
+      if(req.body.role === "Teacher"){
+        Student.register( {username: req.body.username , teacher: {name: req.body.role}  }, req.body.password, function(err, student){
+          if (err) {
+            console.log(err);
+            res.redirect("/signup");
+          } else {
+
+            passport.authenticate("local")(req, res, function(){
+              res.redirect("/home");
+            });
+          }
+        });
+
+      } else {
+        Student.register( {username: req.body.username , stud: {name: req.body.role}  }, req.body.password, function(err, student){
+          if (err) {
+            console.log(err);
+            res.redirect("/signup");
+          } else {
+
+            passport.authenticate("local")(req, res, function(){
+              res.redirect("/home");
+            });
+          }
+        });
+
+      }
 
 });
 
@@ -149,7 +193,15 @@ app.post("/login", function(req, res){
 
 });
 
+app.post("/gdata", function(req,res){
+  Student.updateOne({ _id:req.user.id }, { $set: { role: req.body.role } }).catch(
+   error => {
+      console.log(error);
+    }
 
+ );
+ res.redirect("/home");
+});
 
 
 
