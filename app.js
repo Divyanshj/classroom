@@ -74,7 +74,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    // console.log(profile);
+     // console.log(profile);
 
     Student.findOrCreate({ username: profile.emails[0].value,googleId: profile.id }, function (err, student) {
       return cb(err, student);
@@ -92,13 +92,24 @@ app.get("/auth/google",
 
 app.get("/auth/google/home",
   passport.authenticate('google', { failureRedirect: "/login" }),
-  function(req, res) {
+  async function(req, res) {
+ try {
 
-    res.redirect("/home");
+   if(!req.user.role){
+     res.redirect("/gdata");
+   }else{
+      res.redirect("/home");
+       console.log(req.user.role);
+   }
+ } catch (e) {
+   console.log(e);
+ }
+
   });
 
 app.get("/login", function(req, res){
   res.render("login");
+  console.log(Student);
 });
 
 app.get("/signup", function(req, res){
@@ -116,6 +127,9 @@ app.get("/home", function(req, res){
   res.redirect("/landing");
 }
 
+});
+app.get("/gdata", function(req,res){
+ res.render("gdata");
 });
 
 app.get("/logout", function(req, res){
@@ -174,7 +188,13 @@ app.post("/login", function(req, res){
 
 });
 
-
+app.post("/gdata", function(req,res){
+  Student.updateOne({ _id:req.user.id }, { $set: { role: req.body.role } }).catch(
+   error => {
+      console.log(error);
+    }
+ );
+});
 
 
 
