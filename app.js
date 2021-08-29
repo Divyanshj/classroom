@@ -193,7 +193,9 @@ app.post("/gdata", function(req,res){
    error => {
       console.log(error);
     }
+
  );
+ res.redirect("/home");
 });
 
 
