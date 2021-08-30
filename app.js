@@ -128,7 +128,6 @@ app.get("/auth/google/home",
         res.redirect("/gdata");
       } else {
         res.redirect("/home");
-        console.log(req.user.role);
       }
     } catch (e) {
       console.log(e);
@@ -146,7 +145,6 @@ app.get("/teachersdashboard", function(req, res) {
 
 app.get("/login", function(req, res) {
   res.render("login");
-  console.log(Student);
 });
 
 app.get("/signup", function(req, res) {
@@ -261,7 +259,8 @@ app.get("/home", function(req, res) {
         _id: req.user.id
       }, {
         $set: {
-          role: req.body.role
+          role: req.body.role,
+          name: req.body.name          
         }
       }).catch(
         error => {
