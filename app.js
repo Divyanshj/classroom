@@ -198,8 +198,9 @@ app.get("/home", function(req, res) {
       if (req.body.role === "Teacher") {
         Student.register({
           username: req.body.username,
+          role: req.body.role,
           teacher: {
-            name: req.body.role
+            name: req.body.name
           }
         }, req.body.password, function(err, student) {
           if (err) {
@@ -216,8 +217,9 @@ app.get("/home", function(req, res) {
       } else {
         Student.register({
           username: req.body.username,
+          role: req.body.role,
           stud: {
-            name: req.body.role
+            name: req.body.name
           }
         }, req.body.password, function(err, student) {
           if (err) {
@@ -260,7 +262,7 @@ app.get("/home", function(req, res) {
       }, {
         $set: {
           role: req.body.role,
-          name: req.body.name          
+          name: req.body.name
         }
       }).catch(
         error => {
