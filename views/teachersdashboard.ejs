@@ -1,48 +1,11 @@
 <%- include('partials/header') %>
 
 
-<!-- <div class="assignments">
-  <h1 class="dasboardHeading">ASSIGNMENTS</h1>
-
-  <form action="/uploadassteacher" method="post" enctype="multipart/form-data">
-    <label>Name:</label>
-    <br>
-    <input type="text" name="Assignment_name" value="">
-    <br>
-    <label>Submission Date:</label>
-    <br>
-    <input type="text" name="Assignment_date" value="">
-    <br>
-    <label>Attachment:</label>
-    <br>
-    <input type="file" name="file_upload">
-    <button>Submit</button>
-  </form>
-</div>
-
-<div class="assignments">
-  <h1 class="dasboardHeading">TESTS</h1>
-  <form action="/uploadtestteacher" method="post" enctype="multipart/form-data">
-    <label>Name:</label>
-    <br>
-    <input type="text" name="Assignment" value="">
-    <br>
-    <label>Submission Date:</label>
-    <br>
-    <input type="text" name="Assignment" value="">
-    <br>
-    <input type="file" name="avatar">
-    <button>Submit</button>
-    <!-- </form>  -->
-</div>
-</form> -->
-
-
  <div class="assignments">
-   <h1 class="dasboardHeading">ASSIGNMENTS</h1>
+   <h1 class="dasboardHeading">ADD ASSIGNMENTS</h1>
  <form action="/uploadassteacher" method="post" enctype="multipart/form-data">
    <div class="mb-3">
-     <label for="name1" class="form-label">Name</label>
+     <label for="name1" class="form-label">Assignment Name</label>
      <input type="text" class="form-control" name="Assignment_name" value="">
   </div>
    <div class="mb-3">
@@ -53,15 +16,17 @@
      <label for="attachment1" class="form-label">Submission Date:</label>
      <input type="file" class="form-control" name="file_upload" >
    </div>
+   <center>
    <button class="btn btn-primary">Submit</button>
+   </center>
  </form>
  </div>
 
  <div class="assignments">
-   <h1 class="dasboardHeading">TESTS</h1>
+   <h1 class="dasboardHeading">ADD TESTS</h1>
  <form action="/uploadtestteacher" method="post" enctype="multipart/form-data">
    <div class="mb-3">
-     <label for="name1" class="form-label">Name</label>
+     <label for="name1" class="form-label">Test Name</label>
      <input type="text" class="form-control" name="Assignment" >
   </div>
    <div class="mb-3">
@@ -72,7 +37,9 @@
      <label for="attachment1" class="form-label">Submission Date:</label>
      <input type="file" class="form-control" name="avatar" >
    </div>
-   <button class="btn btn-primary">Submit</button>
+  <center>
+   <button class="btn btn-primary" >Submit</button>
+ </center>
  </form>
  </div>
 

@@ -11,8 +11,8 @@ body {
 /***********************************************NAVBAR**************************************************************************************************/
 
 .my_brand {
-width:16.5vw;
-height:4.5vw;
+  width: 19.5vw;
+  height: 6.5vw;
 }
 
 .navbg {
@@ -52,8 +52,8 @@ height:4.5vw;
   box-shadow: 10px 10px 5px grey;
 }
 .subjectIMG{
-  border-radius: 30px
-  
+  border-radius: 30px;
+  width: 100.5%;
 
 }
 .viewBTN{
@@ -67,7 +67,7 @@ height:4.5vw;
 
 .dasboardHeading{
   font-family: 'Raleway',sans-serif; font-size: 62px; font-weight: 800; line-height: 72px; margin: 0 0 24px; text-align: center; text-transform: uppercase;
-  color: #F6D167;
+  color: #706bc1;
   text-shadow: 5px 5px 2px #FFB830;
 }
 .utilities{
@@ -91,4 +91,3 @@ height:4.5vw;
 }
 .role{
   display:none;
-
