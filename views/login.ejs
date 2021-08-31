@@ -1,11 +1,11 @@
 <%- include('partials/headerbl') %>
 
 <div class="login-container">
-  <h1>Login</h1>
+  <h1 class="loginHeading">Login</h1>
 
   <div class="row">
-    <div class="col-sm-8">
-      <div class="card">
+    <div class="col-lg-8">
+      <div class="card signupCARD bg-transparent">
         <div class="card-body">
 
           <!-- Makes POST request to /login route -->
@@ -18,17 +18,18 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password">
             </div>
-            <button type="submit" class="btn btn-dark">Login</button>
+            <button type="submit" class="btn btn-dark signupSUBMITbtn">Login</button>
           </form>
 
         </div>
       </div>
     </div>
 
-    <div class="col-sm-4">
-      <div class="card">
+    <div class="col-lg-4 googleCOL">
+      <h5 class="googleCHOIC">OR LOGIN WITH GOOGLE</h5>
+      <div class="card social-block bg-transparent googlesignupBTN">
         <div class="card-body">
-          <a class="btn btn-block" href="/auth/google" role="button">
+          <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
             <i class="fab fa-google"></i>
             Sign In with Google
           </a>

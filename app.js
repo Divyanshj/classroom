@@ -275,7 +275,8 @@ app.get("/home", function(req, res) {
       }, {
         $set: {
           role: req.body.role,
-          name: req.body.name
+          name: req.body.name,
+          "teacher.subject.name":req.body.subject
         }
       }).catch(
         error => {
