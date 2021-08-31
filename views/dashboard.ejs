@@ -29,7 +29,7 @@
 
   <ul class="dropdown-menu AssigmentLIST" aria-labelledby="dropdownMenuButton1">
     <% tests.forEach(test=> { %>
-        <li><a class="dropdown-item" href="#"><%= test.name %></a></li>
+        <li><a class="dropdown-item" href="upload/<%= test.name %>"><%= test.name %></a></li>
      <% }) %>
     <!-- <li><a class="dropdown-item" href="#">Tests 1</a></li>
     <li><a class="dropdown-item" href="#">Tests 2</a></li>

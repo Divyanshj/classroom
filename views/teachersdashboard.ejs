@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
 
-<div class="assignments">
+<!-- <div class="assignments">
   <h1 class="dasboardHeading">ASSIGNMENTS</h1>
 
   <form action="/uploadassteacher" method="post" enctype="multipart/form-data">
@@ -35,19 +35,19 @@
     <button>Submit</button>
     <!-- </form>  -->
 </div>
-</form>
+</form> -->
 
 
  <div class="assignments">
    <h1 class="dasboardHeading">ASSIGNMENTS</h1>
- <form action="/upload" method="post" enctype="multipart/form-data">
+ <form action="/uploadassteacher" method="post" enctype="multipart/form-data">
    <div class="mb-3">
      <label for="name1" class="form-label">Name</label>
-     <input type="text" class="form-control" name="Assignment" >
+     <input type="text" class="form-control" name="Assignment_name" value="">
   </div>
    <div class="mb-3">
      <label for="date1" class="form-label">Submission Date:</label>
-     <input type="date" class="form-control" name="Assignment" >
+     <input type="date" class="form-control" name="Assignment_date" value="" >
    </div>
    <div class="mb-3">
      <label for="attachment1" class="form-label">Submission Date:</label>
@@ -59,7 +59,7 @@
 
  <div class="assignments">
    <h1 class="dasboardHeading">TESTS</h1>
- <form action="/upload" method="post" enctype="multipart/form-data">
+ <form action="/uploadtestteacher" method="post" enctype="multipart/form-data">
    <div class="mb-3">
      <label for="name1" class="form-label">Name</label>
      <input type="text" class="form-control" name="Assignment" >
