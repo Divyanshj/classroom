@@ -24,10 +24,10 @@ height:4.5vw;
 }
 
 .dashboardNav{
-    background-color: #E8ECEf;
+  background-color: #E8ECEf;
 }
 .subjectsROW{
-    background-color: #E8ECEF;
+  background-color: #E8ECEF;
   padding-top: 1vw;
   text-align: center;
 }
@@ -52,8 +52,8 @@ height:4.5vw;
   box-shadow: 10px 10px 5px grey;
 }
 .subjectIMG{
-  border-top-right-radius: 10%;
-  border-top-left-radius: 10%;
+  border-radius: 30px
+  
 
 }
 .viewBTN{
@@ -85,10 +85,10 @@ height:4.5vw;
   text-align: center;
   padding-top: 2vw;
 }
+
 .form-control1{
   width: 51.4vw;
 }
 .role{
   display:none;
 
-}

@@ -15,13 +15,13 @@ const uuid = require('uuid').v4;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'upload');
+    cb(null, 'public/upload');
   },
   filename: (req, file, cb) => {
     const {
       originalname
     } = file;
-    cb(null, `${uuid()}-${originalname}`);
+    cb(null,originalname);
   }
 })
 const upload = multer({
@@ -54,6 +54,8 @@ mongoose.connect("mongodb+srv://Divyansh_Jain:" + process.env.PASS + "@cluster0.
 
 
 const studentSchema = new mongoose.Schema({
+  // { typeKey: '$type' }
+  name: String,
   email: String,
   password: String,
   googleId: String,
@@ -65,10 +67,16 @@ const studentSchema = new mongoose.Schema({
     test: [String]
   },
   teacher: {
-    name: String,
-    subject: String,
-    assignments: [String],
-    test: [String]
+    subject:{
+      name: String,
+      assignments: [{
+        // type: String,
+        name: String
+      }],
+      test: [{
+        name: String
+      }]
+    }
   }
 });
 
@@ -197,10 +205,13 @@ app.get("/home", function(req, res) {
 
       if (req.body.role === "Teacher") {
         Student.register({
+          name: req.body.name,
           username: req.body.username,
           role: req.body.role,
           teacher: {
-            name: req.body.name
+            subject:{
+              name: req.body.subject
+            }
           }
         }, req.body.password, function(err, student) {
           if (err) {
@@ -237,6 +248,8 @@ app.get("/home", function(req, res) {
 
     });
 
+
+
     app.post("/login", function(req, res) {
 
       const student = new Student({
@@ -271,13 +284,96 @@ app.get("/home", function(req, res) {
 
       );
       res.redirect("/home");
-    }); app.post('/upload', upload.single('file_upload'), (req, res) => {
-      return res.json({
-        status: 'OK'
-      });
-    });
+    }); app.post('/uploadassteacher', upload.single('file_upload'), (req, res) => {
+      // { $push: { friends: objFriends  } },
+      // {new: true, useFindAndModify: false})
+      // ,{useFindAndModify: false}
+      console.log(req.file.filename);
+      console.log(req.user.id);
 
+      console.log(req.user.teacher.subject.name);
+      // const update= { $push: {teacher:{subject: {assignments: req.file.filename}}} };
+        // const update= {"teacher":{"subject":{$push: "assignments": req.file.filename} } };
+        const update= {$push:{"teacher.subject.assignments": {name: req.file.filename}} }
+        console.log(update);
+         Student.findOneAndUpdate({_id: req.user.id},update,function(err){
+           console.log(err);
+         });
+          res.redirect("/teachersdashboard");
+       });
 
+       app.post('/uploadtestteacher', upload.single('avatar'), (req, res) => {
+         // { $push: { friends: objFriends  } },
+         // {new: true, useFindAndModify: false})
+         // ,{useFindAndModify: false}
+         console.log(req.file.filename);
+         console.log(req.user.id);
+
+         console.log(req.user.teacher.subject.name);
+
+           const update= {$push:{"teacher.subject.test": {name: req.file.filename}} }
+           console.log(update);
+            Student.findOneAndUpdate({_id: req.user.id},update,function(err){
+              console.log(err);
+            });
+             res.redirect("/teachersdashboard");
+          });
+
+      // return res.json({
+      //   status: 'OK'
+      // location=location;
+      // });
+    // });
+
+    app.post("/subject",function(req,res){
+      var subject = req.body.sub;
+      Student.find({"teacher.subject.name": subject},function(err, ans){
+        if(err){
+          console.log(err);
+        }else{
+          res.render("selectteacher",{subject: subject, tnames: ans});
+        }
+      })
+
+    })
+
+    app.post("/teacher",function(req,res){
+      var subject=req.body.sub;
+      Student.findOne({name: req.body.tname, "teacher.subject.name": subject},function(err, ans){
+        if(err){
+          console.log(err);
+        }else{
+          res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments, tests: ans.teacher.subject.test});
+          console.log(ans);
+        }
+      })
+    })
+
+    // app.post("/subject", function(req,res){
+    //   var subject = req.body.sub;
+      // Student.findOne({"teacher.subject.name": subject},function(err, ans){
+      //   if(err){
+      //     console.log(err);
+      //   }else{
+      //     res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments, tests: ans.teacher.subject.test});
+      //     console.log(ans);
+      //   }
+      // })
+    //
+    // });
+
+    // app.post("/cs", function(req,res){
+    //   var subject = req.body.cs;
+    //   Student.findOne({"teacher.subject.name": subject},function(err, ans){
+    //     if(err){
+    //       console.log(err);
+    //     }else{
+    //       res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments});
+    //       console.log(ans);
+    //     }
+    //   })
+    //
+    // });
 
 
     app.listen(process.env.PORT || 3000, function() {
