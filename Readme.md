@@ -9,6 +9,10 @@
 
 A platform for <strong>Online Learning </strong>
 <br/>
+Paathshala is an interactive online education platform which aims to provide an easier access to education. <br>
+It has features like signup and login, which make it more secure, assignment submission, test submission, taking online test, video conferencing, 
+It has a user-friendly user interface which is very convenient to use for anyone.
+
 ## Built With
 The project is built using<br/><br/>
 <ul>
