@@ -9,8 +9,6 @@
 
 A platform for <strong>Online Learning </strong>
 <br/>
-You can
-
 ## Built With
 The project is built using<br/><br/>
 <ul>
