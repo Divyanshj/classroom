@@ -14,7 +14,7 @@ It has features like signup and login, which make it more secure, assignment sub
 It has a user-friendly user interface which is very convenient to use for anyone.
 
 ## Built With
-The project is built using<br/><br/>
+The project has been is built using<br/><br/>
 <ul>
 <li>HTML</li>
 <li>CSS</li>
@@ -24,6 +24,7 @@ The project is built using<br/><br/>
 <li>React</li>
 <li>Socket.io</li>
 <li>Mongodb</li>
+<li>Deployed using Heroku</li>
 </ul>
 
 
