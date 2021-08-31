@@ -1,7 +1,7 @@
 <%-include('partials/header') %>
 
 
-<h1 class="dasboardHeading">Subject Name</h1>
+<h1 class="dasboardHeading"><%= subject %></h1>
 
 <div class="dropdown utilities">
   <button class="btn btn-secondary dropdown-toggle AssigmentButton" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -9,9 +9,12 @@
   </button>
 
   <ul class="dropdown-menu AssigmentLIST" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#">Assigment 1</a></li>
-    <li><a class="dropdown-item" href="#">Assigment 2</a></li>
-    <li><a class="dropdown-item" href="#">Assigment 3</a></li>
+    <% assignments.forEach(ass=> { %>
+        <li><a class="dropdown-item" href="#"><%= ass.name %></a></li>
+     <% }) %>
+
+    <!-- <li><a class="dropdown-item" href="#">Assigment 2</a></li>
+    <li><a class="dropdown-item" href="#">Assigment 3</a></li> -->
   </ul>
 
 
