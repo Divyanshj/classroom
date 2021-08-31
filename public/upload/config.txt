@@ -1,0 +1,6 @@
+APP-Name-Font-Ubuntu-40px
+Headings-Montserrat-40px
+Sub-heading-Rajdhani-40px
+Buttons-text-Jura-30px
+if needed use gruppo.
+
