@@ -15,13 +15,13 @@ const uuid = require('uuid').v4;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'upload');
+    cb(null, 'public/upload');
   },
   filename: (req, file, cb) => {
     const {
       originalname
     } = file;
-    cb(null, `${uuid()}-${originalname}`);
+    cb(null,originalname);
   }
 })
 const upload = multer({
@@ -325,18 +325,55 @@ app.get("/home", function(req, res) {
       // });
     // });
 
-    app.post("/cs", function(req,res){
-      var subject = req.body.cs;
-      Student.findOne({"teacher.subject.name": subject},function(err, ans){
+    app.post("/subject",function(req,res){
+      var subject = req.body.sub;
+      Student.find({"teacher.subject.name": subject},function(err, ans){
         if(err){
           console.log(err);
         }else{
-          res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments});
-          console.log(ans);
+          res.render("selectteacher",{subject: subject, tnames: ans});
         }
       })
 
-    });
+    })
+
+    app.post("/teacher",function(req,res){
+      var subject=req.body.sub;
+      Student.findOne({name: req.body.tname, "teacher.subject.name": subject},function(err, ans){
+        if(err){
+          console.log(err);
+        }else{
+          res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments, tests: ans.teacher.subject.test});
+          console.log(ans);
+        }
+      })
+    })
+
+    // app.post("/subject", function(req,res){
+    //   var subject = req.body.sub;
+      // Student.findOne({"teacher.subject.name": subject},function(err, ans){
+      //   if(err){
+      //     console.log(err);
+      //   }else{
+      //     res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments, tests: ans.teacher.subject.test});
+      //     console.log(ans);
+      //   }
+      // })
+    //
+    // });
+
+    // app.post("/cs", function(req,res){
+    //   var subject = req.body.cs;
+    //   Student.findOne({"teacher.subject.name": subject},function(err, ans){
+    //     if(err){
+    //       console.log(err);
+    //     }else{
+    //       res.render("dashboard",{subject:subject, assignments: ans.teacher.subject.assignments});
+    //       console.log(ans);
+    //     }
+    //   })
+    //
+    // });
 
 
     app.listen(process.env.PORT || 3000, function() {

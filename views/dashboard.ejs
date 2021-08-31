@@ -10,8 +10,10 @@
 
   <ul class="dropdown-menu AssigmentLIST" aria-labelledby="dropdownMenuButton1">
     <% assignments.forEach(ass=> { %>
-        <li><a class="dropdown-item" href="#"><%= ass.name %></a></li>
+        <li><a class="dropdown-item" href="upload/<%= ass.name %>"><%= ass.name %></a></li>
      <% }) %>
+
+     <!-- C:\Users\Hp\Desktop\github\classroom\upload\8.gif -->
 
     <!-- <li><a class="dropdown-item" href="#">Assigment 2</a></li>
     <li><a class="dropdown-item" href="#">Assigment 3</a></li> -->
@@ -26,9 +28,12 @@
   </button>
 
   <ul class="dropdown-menu AssigmentLIST" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#">Tests 1</a></li>
+    <% tests.forEach(test=> { %>
+        <li><a class="dropdown-item" href="#"><%= test.name %></a></li>
+     <% }) %>
+    <!-- <li><a class="dropdown-item" href="#">Tests 1</a></li>
     <li><a class="dropdown-item" href="#">Tests 2</a></li>
-    <li><a class="dropdown-item" href="#">Tests 3</a></li>
+    <li><a class="dropdown-item" href="#">Tests 3</a></li> -->
   </ul>
 
 

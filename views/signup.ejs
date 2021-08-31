@@ -24,7 +24,15 @@
             </div>
             <div class="form-group role" id="teacher" required>
               <label for="subject">Subject *</label>
-              <input type="text" class="form-control " name="subject">
+              <select id="subject" name="subject" class="form-control" required>
+                <option value="volvo">Click To Select Subject </option>
+                <option value="English">English</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Physics">Physics</option>
+                <option value="Mathematics">Mathematics</option>
+              </select>
+              <!-- <input type="text" class="form-control " name="subject"> -->
             </div>
             <div class="form-group role" id="student" required>
               <label for="roll-no">Roll No. *</label>
