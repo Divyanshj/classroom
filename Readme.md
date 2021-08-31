@@ -1,7 +1,7 @@
 # Paathshala
 <!-- PROJECT LOGO -->
 <p align="center">
-    <img src="public/images/logo.PNG" height="200px"  align="center"/>
+    <img src="https://github.com/ayushseth07/classroom/blob/main/public/images/logo.png" height="200px"  align="center"/>
 </p>
 
 
@@ -46,7 +46,7 @@ cd classroom
 
 **5.** run node app.js
 
-##MADE BY :-
+## MADE BY :-
 <ul>
  <li><a href="https://github.com/ayushseth07">Ayush Seth</a></li>
  <li><a href="https://github.com/ayushsagar10">Aayush Sagar</a></li>
@@ -54,7 +54,7 @@ cd classroom
  <li><a href="https://github.com/Divyanshj/">Divyansh Jain</a></li>
 </ul>
 
-##Features
+## Features
 <p>SIGN-UP & LOGIN: User can login with gmail account or register on our website. This feature is highly secure </p>
 <br>
 <p>VIDEO-CONFERENCING: We enable Teachers with an option to create a private room and share it's ID with students </p>
