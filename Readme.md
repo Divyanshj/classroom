@@ -14,7 +14,7 @@ It has features like signup and login, which make it more secure, assignment sub
 It has a user-friendly user interface which is very convenient to use for anyone.
 
 ## Built With
-The project has been is built using<br/><br/>
+The project has been built using<br/><br/>
 <ul>
 <li>HTML</li>
 <li>CSS</li>
