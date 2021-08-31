@@ -1,0 +1,23 @@
+<%-include('partials/headerbl') %>
+
+
+<h1 class="dasboardHeading"><%= subject %></h1>
+
+<form class="form-group" action="/teacher" method="post">
+
+
+<label for="tname">Teacher: </label>
+<select id="tname" name="tname" class="form-control" required>
+  <option value="volvo">Click To Select Teacher Name </option>
+
+  <% tnames.forEach(tname=> { %>
+    <option value= "<%= tname.name %>"><%= tname.name %></option>
+   <% }) %>
+
+</select>
+<button type="submit" class="btn btn-dark" value="<%= subject%>" name="sub">Submit</button>
+</form>
+
+
+
+<%- include('partials/footerbl') %>
