@@ -37,7 +37,7 @@ The project has been built using<br/><br/>
 
 **2.**  Clone your forked copy of the project.
 ```
-git clone --depth 1 https://github.com/<your_user_name>/classroom.git
+git clone https://github.com/<your_user_name>/classroom.git
 ```
 where `your_user_name` is your GitHub username. Here you're copying the contents of the first-contributions repository on GitHub to your computer.
 
